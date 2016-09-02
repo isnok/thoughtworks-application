@@ -7,7 +7,7 @@ Vagrant.configure(VAGRANT_API_VERSION) do |config|
 
   cfg = {
     'vm' => {
-      'box' => 'bento/centos-6.8', #'centos/7',
+      'box' => 'bento/debian-8.5', #'bento/centos-6.8', #'centos/7',
       'check_update' => false,
       'synced_folders' => false
     },
@@ -30,20 +30,20 @@ Vagrant.configure(VAGRANT_API_VERSION) do |config|
   config.vm.box = cfg['vm']['box']
   config.vm.box_check_update = cfg['vm']['check_update']
 
-  config.vm.define :training_env do |d|
+  config.vm.define "training_env" do |d|
 
     d.vm.hostname = 'TrainingEnvironment'
 
-    if not cfg['vm']['synced_folders']
-      d.vm.synced_folder '.', '/vagrant', id: 'vagrant-root', disabled: true
-      d.vm.synced_folder '.', '/home/vagrant/sync', id: 'vagrant-root', disabled: true
-    end
+    #if not cfg['vm']['synced_folders']
+    #  d.vm.synced_folder '.', '/vagrant', id: 'vagrant-root', disabled: true
+    #  d.vm.synced_folder '.', '/home/vagrant/sync', id: 'vagrant-root', disabled: true
+    #end
 
     #d.ssh.private_key_path = 'vagrant_key'
     #d.ssh.forward_agent = true
 
     # provisioner configuration
-    d.vm.provision :ansible do |ansible|
+    d.vm.provision "ansible" do |ansible|
 
       # configure ansible-galaxy
       #ansible.galaxy_roles_path = 'provisioning/roles/'
@@ -52,6 +52,7 @@ Vagrant.configure(VAGRANT_API_VERSION) do |config|
 
       ## configure ansible-playbook
       ansible.playbook = 'provisioning/training.yml'
+      ansible.verbose = 'v'
       #ansible.playbook = 'provisioning/site.yml'
 
       #ansible.groups = {

@@ -1,8 +1,0 @@
----
-
-- name: Provisioning with Vagrant
-  hosts: tomcat-servers
-  tasks:
-
-      - name: Greet the user(s)
-        debug: msg="Hello from Ansible"
