@@ -7,7 +7,7 @@ Vagrant.configure(VAGRANT_API_VERSION) do |config|
 
   cfg = {
     'vm' => {
-      'box' => 'bento/debian-8.5', #'bento/centos-6.8', #'centos/7',
+      'box' => 'bento/debian-8.5',
       'check_update' => false,
       'synced_folders' => false
     },
@@ -42,6 +42,8 @@ Vagrant.configure(VAGRANT_API_VERSION) do |config|
     #d.ssh.private_key_path = 'vagrant_key'
     #d.ssh.forward_agent = true
 
+    d.vm.network "forwarded_port", guest: 8080, host: 8080
+
     # provisioner configuration
     d.vm.provision "ansible" do |ansible|
 
@@ -51,7 +53,8 @@ Vagrant.configure(VAGRANT_API_VERSION) do |config|
       #ansible.galaxy_command = 'ansible-galaxy install --role-file=%{role_file} --roles-path=%{roles_path}' # --ignore-errors --force'
 
       ## configure ansible-playbook
-      ansible.playbook = 'provisioning/training.yml'
+      ansible.playbook = 'training.yml'
+      ansible.sudo = true
       ansible.verbose = 'v'
       #ansible.playbook = 'provisioning/site.yml'
 

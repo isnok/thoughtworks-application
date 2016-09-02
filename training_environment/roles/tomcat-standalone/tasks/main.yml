@@ -1,0 +1,16 @@
+---
+- name: install tomcat8 packages
+  apt: name={{item}} state=installed update_cache=yes
+  with_items:
+  - tomcat8
+  - tomcat8-admin
+
+- name: make sure tomcat is started
+  service: name=tomcat8 enabled=yes state=started
+
+- name: copy static files into place
+  copy: src=static.zip dest=/srv/static.zip owner=www-data group=www-data
+
+- name: copy war file into place
+  copy: src=companyNews.war dest=/srv/companyNews.war owner=www-data group=www-data
+
