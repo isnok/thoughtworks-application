@@ -5,12 +5,28 @@
   - tomcat8
   - tomcat8-admin
 
-- name: make sure tomcat is started
-  service: name=tomcat8 enabled=yes state=started
 
-- name: copy static files into place
-  copy: src=static.zip dest=/srv/static.zip owner=www-data group=www-data
+- name: deploy tomcat configuration
+  template: src=tomcat8-server.xml dest=/etc/tomcat8/server.xml
+
+- name: remove default tomcat8 ROOT webapp
+  file: path=/var/lib/tomcat8/webapps/ROOT state=absent
+
 
 - name: copy war file into place
-  copy: src=companyNews.war dest=/srv/companyNews.war owner=www-data group=www-data
+  copy: src=companyNews.war dest=/var/lib/tomcat8/webapps
+
+- name: create prevayler data directory
+  file: path=/Users/dcameron/persistence/files* state=directory owner=tomcat8 group=tomcat8 mode=0755
+
+
+- name: unzip static files
+  unarchive: src=static.zip dest=/srv
+
+- name: copy static files into unpacked war
+  shell: "cp -rv /srv/static/* /var/lib/tomcat8/webapps/companyNews"
+
+
+- name: restart tomcat
+  service: name=tomcat8 enabled=yes state=restarted
 
