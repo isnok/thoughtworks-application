@@ -1,0 +1,48 @@
+upcoming release:
+=================
+
+vagrant
+    - multiple hosts
+    - secure access!!
+
+log-setup
+    - regularly backup /var/log
+    - sync/mirror /var/log
+    - feed it to the cloud?
+
+prevayler-setup
+    - make backups regularly
+    - sync to cloud?...
+
+load-balancing
+    - not yet highly available
+    - scales moderately
+    - probably nginx
+    - serve static files separately
+
+monitoring
+    - uptime-monitoring
+    - metrics
+    - alerts
+
+deployment plan
+    - deploy via ansible (if possible)
+    - else fabric
+
+
+further development advice:
+===========================
+
+use a DBMS
+    - think about future plans
+    - check NoSQL possibilities
+    - then choose wisely
+
+
+
+next release:
+=============
+
+rolling releases
+high availability
+scaling

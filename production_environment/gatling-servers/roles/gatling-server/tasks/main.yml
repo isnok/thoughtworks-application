@@ -1,0 +1,11 @@
+---
+
+- name: install gatling
+  apt: name=gatling state=installed update_cache=yes
+
+#- name: assure gatling is runnnig
+  #service: name=gatling enabled=yes state=started
+
+- name: deploy static files
+  unarchive: src=static.zip dest=/srv
+
