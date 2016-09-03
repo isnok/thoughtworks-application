@@ -8,21 +8,21 @@ ansible
     - introduce / use variables
     - handlers & ...?
 
+load-balancing
+    - scale all up to 2 hosts
+
+deployment plan
+    - deploy via ansible (if possible)
+    - else fabric
+
 log-setup
     - sync/mirror /var/log?
     - feed it to the cloud?
-
-load-balancing
-    - scale all up to 2 hosts
 
 monitoring
     - uptime-monitoring
     - metrics
     - alerts
-
-deployment plan
-    - deploy via ansible (if possible)
-    - else fabric
 
 
 further development advice:
