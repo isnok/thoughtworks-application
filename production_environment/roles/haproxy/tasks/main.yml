@@ -3,10 +3,10 @@
 #- debug: var=hostvars[item]["ansible_eth1"]["ipv4"]["address"]
   #with_items: "{{groups['appservers'] + groups['static']}}"
 
-#- name: install haproxy
-  #apt: name={{item}} state=installed update_cache=yes
-  #with_items:
-  #- haproxy
+- name: install haproxy
+  apt: name={{item}} state=installed update_cache=yes
+  with_items:
+  - haproxy
 
 - name: deploy haproxy configuration
   template: src=haproxy.cfg dest=/etc/haproxy/haproxy.cfg
