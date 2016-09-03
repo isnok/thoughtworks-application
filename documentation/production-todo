@@ -2,23 +2,18 @@ upcoming release:
 =================
 
 vagrant
-    - multiple hosts
     - secure access!!
 
+ansible
+    - introduce / use variables
+    - handlers & ...?
+
 log-setup
-    - regularly backup /var/log
-    - sync/mirror /var/log
+    - sync/mirror /var/log?
     - feed it to the cloud?
 
-prevayler-setup
-    - make backups regularly
-    - sync to cloud?...
-
 load-balancing
-    - not yet highly available
-    - scales moderately
-    - probably nginx
-    - serve static files separately
+    - scale all up to 2 hosts
 
 monitoring
     - uptime-monitoring
