@@ -6,3 +6,6 @@
 
 - name: deploy haproxy configuration
   template: src=haproxy.cfg dest=/etc/haproxy/haproxy.cfg
+
+- name: assert haproxy was started correctly
+  service: name=haproxy state=started enabled=yes
