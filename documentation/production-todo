@@ -7,8 +7,6 @@ setup
     - ansible handlers & ...?
 
 load-balancing
-    - introduce ansible variables
-    - scale all up to 2 hosts
     - fine-tune configs
 
 deployment plan
@@ -26,12 +24,8 @@ monitoring
     - availability-monitoring
     - service-quality-monitoring
 
-use a DBMS
-    - think about future plans
-        + data flow in envisioned full-scale product
-        + self-hosted vs cloud
-    - check NoSQL possibilities
-    - then choose wisely
+consider a (R)DBMS
+    - think about data flow in the app
 
 scaling / rolling releases
 

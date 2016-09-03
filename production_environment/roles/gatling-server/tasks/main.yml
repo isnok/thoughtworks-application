@@ -1,7 +1,7 @@
 ---
 
 - name: install gatling
-  apt: name=gatling state=installed update_cache=yes
+  apt: name=gatling state=installed # update_cache=yes
 
 #- name: assure gatling is runnnig
   #service: name=gatling enabled=yes state=started
@@ -21,7 +21,7 @@
 - name: assert gatling is started
   service: name=gatling state=restarted enabled=yes
 
-#- name: restart machine to ensure startup 
+#- name: restart machine to ensure startup
   #shell: sleep 2 && shutdown -r now "Ansible will reboot"
   #async: 1
   #poll: 0
