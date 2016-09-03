@@ -3,10 +3,14 @@ upcoming release:
 
 vagrant
     - secure access!!
+    - reduce sudo
 
 ansible
     - introduce / use variables
     - handlers & ...?
+
+services
+    - fine-tune configs
 
 load-balancing
     - scale all up to 2 hosts
@@ -15,18 +19,17 @@ deployment plan
     - deploy via ansible (if possible)
     - else fabric
 
+
+further development advice:
+===========================
+
 log-setup
     - sync/mirror /var/log?
     - feed it to the cloud?
 
 monitoring
-    - uptime-monitoring
-    - metrics
-    - alerts
-
-
-further development advice:
-===========================
+    - availability-monitoring
+    - service-quality-monitoring
 
 use a DBMS
     - think about future plans
