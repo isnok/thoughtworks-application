@@ -1,6 +1,6 @@
 ---
 - name: install tomcat8 packages
-  apt: name={{item}} state=installed update_cache=yes
+  apt: name={{item}} state=installed # update_cache=yes
   with_items:
   - tomcat8
   #- tomcat8-admin

@@ -4,7 +4,7 @@
   #with_items: "{{groups['appservers'] + groups['static']}}"
 
 - name: install haproxy
-  apt: name={{item}} state=installed update_cache=yes
+  apt: name={{item}} state=installed # update_cache=yes
   with_items:
   - haproxy
 

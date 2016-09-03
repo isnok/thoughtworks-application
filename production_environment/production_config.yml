@@ -4,18 +4,18 @@
   vars:
     balancers:
         - name: balancer1
-          ip: 172.28.48.12
+          ip: 10.0.0.10
           hostport: 8080
         - name: balancer2
-          ip: 172.28.48.13
+          ip: 10.0.0.11
           hostport: 8090
     appservers:
         - name: appserver1
-          ip: 172.28.48.183
+          ip: 10.0.0.20
         - name: appserver2
-          ip: 172.28.48.228
+          ip: 10.0.0.21
     static:
         - name: static1
-          ip: 172.28.48.26
+          ip: 10.0.0.30
         - name: static2
-          ip: 172.28.48.89
+          ip: 10.0.0.31
