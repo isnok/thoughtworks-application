@@ -7,5 +7,4 @@
   #service: name=gatling enabled=yes state=started
 
 - name: deploy static files
-  unarchive: src=static.zip dest=/srv
-
+  copy: src=static dest=/srv

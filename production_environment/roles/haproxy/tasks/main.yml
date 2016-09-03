@@ -1,0 +1,8 @@
+---
+- name: install haproxy
+  apt: name={{item}} state=installed update_cache=yes
+  with_items:
+  - haproxy
+
+- name: deploy haproxy configuration
+  template: src=haproxy.cfg dest=/etc/haproxy/haproxy.cfg

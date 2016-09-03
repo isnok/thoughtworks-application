@@ -1,0 +1,44 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+
+    config.vm.box = "bento/debian-8.5"
+    config.vm.box_check_update = false
+
+    config.vm.provider "virtualbox" do |v|
+        v.customize ["modifyvm", :id, "--memory", 256]
+    end
+
+    config.vm.define "appserver1", primary:true do |tomcat_server|
+
+        tomcat_server.vm.network :private_network, ip: "172.28.48.183"
+
+    end
+
+    config.vm.define "static1" do |gatling_server|
+
+        gatling_server.vm.network :private_network, ip: "172.28.48.26"
+
+    end
+
+    config.vm.define "balancer1" do |haproxy|
+
+        haproxy.vm.network "forwarded_port", guest: 8080, host: 80
+        haproxy.vm.network :private_network, ip: "172.28.48.12"
+
+    end
+
+
+    config.vm.provision "ansible" do |ansible|
+        ansible.playbook = "playbook.yml"
+        ansible.sudo = true
+        #ansible.verbose = "vvv"
+
+        ansible.groups = {
+            'balancers' => ['balancer1'],
+            'appservers' => ['appserver1'],
+            'static' => ['static1'],
+        }
+    end
+end

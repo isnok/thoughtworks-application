@@ -1,0 +1,13 @@
+---
+
+- hosts: static
+  roles:
+      - gatling-server
+
+- hosts: appservers
+  roles:
+      - tomcat-server
+
+- hosts: balancers
+  roles:
+      - haproxy

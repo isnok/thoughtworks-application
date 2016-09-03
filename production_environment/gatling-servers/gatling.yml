@@ -1,7 +1,0 @@
----
-
-- name: set up servers for static content delivery
-  hosts: all
-
-  roles:
-      - gatling-server
