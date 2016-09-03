@@ -1,17 +1,23 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-cfg = {
-    :balancers => [
-        {:name=>'balancer1', :ip=>'172.28.48.12', :hostport=>8080},
-    ],
-    :appservers => [
-        {:name=>'appserver1', :ip=> '172.28.48.183'},
-    ],
-    :static => [
-        {:name=> 'static1', :ip=> '172.28.48.26'},
-    ],
-}
+#production_config = {
+    #'balancers' => [
+        #{'name'=>'balancer1', 'ip'=>'172.28.48.12', 'hostport'=>8080},
+        #{'name'=>'balancer2', 'ip'=>'172.28.48.13', 'hostport'=>8090},
+    #],
+    #'appservers' => [
+        #{'name'=>'appserver1', 'ip'=> '172.28.48.183'},
+        #{'name'=>'appserver2', 'ip'=> '172.28.48.228'},
+    #],
+    #'static' => [
+        #{'name'=> 'static1', 'ip'=> '172.28.48.26'},
+        #{'name'=> 'static2', 'ip'=> '172.28.48.89'},
+    #],
+#}
+
+require "yaml"
+production_config = YAML.load_file('production_config.yml')[0]['vars']
 
 Vagrant.configure("2") do |config|
 
@@ -22,36 +28,36 @@ Vagrant.configure("2") do |config|
         v.customize ["modifyvm", :id, "--memory", 256]
     end
 
-    cfg[:balancers].each do |balancer_cfg|
-        config.vm.define balancer_cfg[:name] do |haproxy|
-            haproxy.vm.network "forwarded_port", guest:80 , host: balancer_cfg[:hostport]
-            haproxy.vm.network :private_network, ip: balancer_cfg[:ip]
+    production_config['balancers'].each do |balancer_cfg|
+        config.vm.define balancer_cfg['name'] do |haproxy|
+            haproxy.vm.network "forwarded_port", guest:80 , host: balancer_cfg['hostport']
+            haproxy.vm.network :private_network, ip: balancer_cfg['ip']
         end
     end
-
-    cfg[:appservers].each do |appserver_cfg|
-        config.vm.define appserver_cfg[:name] do |tomcat|
-            tomcat.vm.network :private_network, ip: appserver_cfg[:ip]
+    production_config['appservers'].each do |appserver_cfg|
+        config.vm.define appserver_cfg['name'] do |tomcat|
+            tomcat.vm.network :private_network, ip: appserver_cfg['ip']
         end
     end
-
-    cfg[:static].each do |static_cfg|
-        config.vm.define static_cfg[:name] do |gatling|
-            gatling.vm.network :private_network, ip: static_cfg[:ip]
+    production_config['static'].each do |static_cfg|
+        config.vm.define static_cfg['name'] do |gatling|
+            gatling.vm.network :private_network, ip: static_cfg['ip']
         end
     end
 
 
     config.vm.provision "ansible" do |ansible|
-        ansible.playbook = "playbook.yml"
+        ansible.playbook = "production_config.yml"
         ansible.sudo = true
         #ansible.verbose = "vvv"
 
-        ansible.groups = {
-            'balancers' => ['balancer1'],
-            'appservers' => ['appserver1'],
-            'static' => ['static1'],
-        }
-        ansible.limit = 'all'
+        ansible.groups = {}
+        production_config.each_pair do |key, hashlist|
+            ansible.groups[key] = namelist = []
+            hashlist.each do |hostcfg|
+                namelist.push(hostcfg['name'])
+            end
+        end
+        #ansible.limit = 'all'
     end
 end

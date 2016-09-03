@@ -1,0 +1,21 @@
+---
+
+- include: playbook.yml
+  vars:
+    balancers:
+        - name: balancer1
+          ip: 172.28.48.12
+          hostport: 8080
+        - name: balancer2
+          ip: 172.28.48.13
+          hostport: 8090
+    appservers:
+        - name: appserver1
+          ip: 172.28.48.183
+        - name: appserver2
+          ip: 172.28.48.228
+    static:
+        - name: static1
+          ip: 172.28.48.26
+        - name: static2
+          ip: 172.28.48.89
