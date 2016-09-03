@@ -1,31 +1,26 @@
 upcoming release:
 =================
 
-vagrant
-    - secure access!!
+setup
+    - secure vagrant access!!
     - reduce sudo
-
-ansible
-    - introduce / use variables
-    - handlers & ...?
-
-services
-    - fine-tune configs
+    - ansible handlers & ...?
 
 load-balancing
+    - introduce ansible variables
     - scale all up to 2 hosts
+    - fine-tune configs
 
 deployment plan
     - deploy via ansible (if possible)
     - else fabric
 
 
-further development advice:
-===========================
+further development:
+====================
 
 log-setup
-    - sync/mirror /var/log?
-    - feed it to the cloud?
+    - self-hosted vs cloud
 
 monitoring
     - availability-monitoring
@@ -33,14 +28,16 @@ monitoring
 
 use a DBMS
     - think about future plans
+        + data flow in envisioned full-scale product
+        + self-hosted vs cloud
     - check NoSQL possibilities
     - then choose wisely
 
+scaling / rolling releases
 
 
-next release:
-=============
+big rollout:
+============
 
-rolling releases
-high availability
-scaling
+CDN
+global availability
