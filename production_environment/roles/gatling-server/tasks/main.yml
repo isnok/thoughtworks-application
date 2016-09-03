@@ -15,8 +15,8 @@
 - name: deploy static files
   copy: src=static dest=/srv
 
-#- name: assert gatling is started
-  #service: name=gatling state=started enabled=yes
+- name: assert gatling is started
+  service: name=gatling state=restarted enabled=yes
 
 #- name: restart machine to ensure startup 
   #shell: sleep 2 && shutdown -r now "Ansible will reboot"
