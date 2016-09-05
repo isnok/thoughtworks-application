@@ -20,9 +20,5 @@
 
 - hosts: logservers
   roles:
-    #- elasticserver
-    #- mongodb
-    #- rabbitmq
-    #- graylog2
     - rsyslog-server
     - vagrant-security
