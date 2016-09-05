@@ -8,6 +8,9 @@
 - name: stop tomcat
   service: name=tomcat8 state=stopped
 
+- name: install tomcat default
+  template: src=tomcat8-default dest=/etc/default/tomcat8
+
 - name: deploy tomcat configuration
   template: src=tomcat8-production.xml dest=/etc/tomcat8/server.xml
 

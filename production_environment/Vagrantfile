@@ -10,7 +10,7 @@ Vagrant.configure("2") do |config|
     config.vm.box_check_update = false
 
     config.vm.provider "virtualbox" do |v|
-        v.customize ["modifyvm", :id, "--memory", 256]
+        v.customize ["modifyvm", :id, "--memory", 128]
     end
 
     production_config['balancers'].each do |balancer_cfg|
