@@ -1,9 +1,10 @@
 ---
-- name: install tomcat8 packages
+- name: install packages
   apt: name={{item}} state=installed update_cache=yes
   with_items:
   - tomcat8
   - tomcat8-admin
+  - unzip # required by ansible unarchive module
 
 
 - name: deploy tomcat configuration
