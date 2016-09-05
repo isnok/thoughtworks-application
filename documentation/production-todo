@@ -1,3 +1,9 @@
+papertrail
+==========
+    - list dependencies (virtualbox, vagrant, ansible)
+
+
+
 upcoming release:
 =================
 
@@ -22,6 +28,7 @@ log-setup
 monitoring
     - availability-monitoring
     - service-quality-monitoring
+    - external alerting service
 
 consider a (R)DBMS
     - think about data flow in the app

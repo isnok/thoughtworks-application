@@ -1,0 +1,10 @@
+---
+- name: start graylog2 server
+  command: chdir=/opt/graylog2/{{graylog2_server_version}}/bin ./graylog2ctl start
+  sudo: True
+  become: graylog2
+
+- name: start graylog2 web
+  command: chdir=/opt/graylog2/{{graylog2_web_version}} ./bin/graylog2-web-interface
+  sudo: True
+  become: graylog2

@@ -2,13 +2,27 @@
 
 - hosts: static
   roles:
-      - gatling-server
+    - gatling-server
+    - rsyslog-client
+    - vagrant-security
 
 - hosts: appservers
   roles:
-      - tomcat-server
+    - tomcat-server
+    - rsyslog-client
+    - vagrant-security
 
 - hosts: balancers
   roles:
-      - haproxy
+    - haproxy
+    - rsyslog-client
+    - vagrant-security
 
+- hosts: logservers
+  roles:
+    #- elasticserver
+    #- mongodb
+    #- rabbitmq
+    #- graylog2
+    - rsyslog-server
+    - vagrant-security

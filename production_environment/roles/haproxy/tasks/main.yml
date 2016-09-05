@@ -14,5 +14,4 @@
 - name: assert haproxy is started correctly
   service: name=haproxy state=restarted enabled=yes
 
-- name: disable vagrant user password
-  xxx: FIXME
+#- debug: FIXME disable vagrant user password

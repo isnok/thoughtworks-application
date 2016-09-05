@@ -22,13 +22,18 @@ Vagrant.configure("2") do |config|
     production_config['appservers'].each do |appserver_cfg|
         config.vm.define appserver_cfg['name'] do |tomcat|
             tomcat.vm.network :private_network, ip: appserver_cfg['ip']
-            #tomcat.vm.synced_folder 'prevayler_journals/', '/Users/dcameron/persistence/files*',
-                #id: 'prevayler-data', owner: 'tomcat8', group: 'tomcat8'
+            tomcat.vm.synced_folder 'prevayler/', '/Users/dcameron/persistence/files*',
+                id: 'prevayler-data', owner: 'tomcat8', group: 'tomcat8'
         end
     end
     production_config['static'].each do |static_cfg|
         config.vm.define static_cfg['name'] do |gatling|
             gatling.vm.network :private_network, ip: static_cfg['ip']
+        end
+    end
+    production_config['logservers'].each do |logserver_cfg|
+        config.vm.define logserver_cfg['name'] do |rsyslog|
+            rsyslog.vm.network :private_network, ip: logserver_cfg['ip']
         end
     end
 

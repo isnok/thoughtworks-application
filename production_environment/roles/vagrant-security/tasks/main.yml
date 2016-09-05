@@ -1,0 +1,3 @@
+---
+- name: remove password for user vagrant
+  shell: "sed 's/^vagrant:[^:]*/vagrant:!/' /etc/shadow"

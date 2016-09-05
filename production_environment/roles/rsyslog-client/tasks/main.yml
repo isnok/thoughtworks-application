@@ -1,0 +1,3 @@
+---
+- name: deploy rsyslog consumer configuration
+  template: src=rsyslog-client.conf dest=/etc/rsyslog.conf
