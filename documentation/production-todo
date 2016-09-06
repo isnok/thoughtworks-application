@@ -8,7 +8,6 @@ upcoming release:
 =================
 
 setup
-    - secure vagrant access
     - reduce sudo
     - ansible handlers & ...?
 
