@@ -11,7 +11,5 @@
 - name: deploy haproxy configuration
   template: src=haproxy.cfg dest=/etc/haproxy/haproxy.cfg
 
-- name: assert haproxy is started correctly
+- name: restart haproxy
   service: name=haproxy state=restarted enabled=yes
-
-#- debug: FIXME disable vagrant user password
