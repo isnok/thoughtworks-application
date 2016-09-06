@@ -12,15 +12,29 @@ Architecture
 ------------
 
 All systems are based on the vagrant image bento/debian-8.5 (https://atlas.hashicorp.com/bento/boxes/debian-8.5).
-To serve the war file in each environment, I chose tomcat, because it is an apache project.
-It also serves the static files in the training environment, so it is really the only service running there.
-
+To serve the war file in each environment, I chose tomcat because it is an apache project.
 
 
 Training environment
 --------------------
 
-The training envi
+Here tomcat also serves the static files, so it is literally the only service defined there.
+Tomcat's listen port is `8080` and it is forwarded to that same port on the vagrant host machine.
+The log directory is synced to the host into the `logs` directory.
+
+
+Production environment
+----------------------
+
+The production setup looks roughly as follows:
+
+Internet --> load balancers [haproxy] --> appservers [tomcat8] / staticservers [gatling]
+
+haproxy redirects the request to the appropriate backend (appservers/static) based on the request url.
+It could also be used to collect statistics.
+
+
+
 
 
 
