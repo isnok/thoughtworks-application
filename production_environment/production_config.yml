@@ -36,11 +36,12 @@
         - name: logserver1
           ip: 10.0.0.100
           port: 514
-          hostport: 8100
+          hostport: 8100 # enable gatling-logserver role in playbook.yml to access log files from the host at this port
         - name: logserver2
           ip: 10.0.0.101
           port: 514
-          hostport: 8101
+          #hostport: 8101
         #- name: logserver3
           #ip: 10.0.0.102
           #port: 514
+          #hostport: 8102

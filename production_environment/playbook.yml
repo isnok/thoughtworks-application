@@ -23,6 +23,6 @@
     - rsyslog-server
     - vagrant-security
 
-- hosts: logserver1
-  roles:
-    - gatling-logserver
+#- hosts: logserver1
+  #roles:
+    #- gatling-logserver
