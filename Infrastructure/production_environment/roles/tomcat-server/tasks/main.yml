@@ -1,0 +1,27 @@
+---
+- name: install tomcat8 packages
+  apt: name={{item}} state=installed # update_cache=yes
+  with_items:
+  - tomcat8
+  #- tomcat8-admin
+
+- name: stop tomcat
+  service: name=tomcat8 state=stopped
+
+- name: install tomcat default
+  template: src=tomcat8-default dest=/etc/default/tomcat8
+
+- name: deploy tomcat configuration
+  template: src=tomcat8-production.xml dest=/etc/tomcat8/server.xml
+
+- name: copy war file into place
+  copy: src=companyNews.war dest=/var/lib/tomcat8/webapps
+
+- name: remove default tomcat8 ROOT webapp
+  file: path=/var/lib/tomcat8/webapps/ROOT state=absent
+
+- name: create prevayler data directory
+  file: path=/Users/dcameron/persistence/files* state=directory owner=tomcat8 group=tomcat8 mode=0755
+
+- name: restart tomcat (also on boot)
+  service: name=tomcat8 enabled=yes state=restarted

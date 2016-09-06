@@ -1,0 +1,14 @@
+---
+
+- name: Set up the training environment
+  hosts: all
+
+  roles:
+      - tomcat-standalone
+
+  #tasks:
+
+      #- name: Greet the user(s)
+        #debug: msg="Hello from Ansible"
+
+

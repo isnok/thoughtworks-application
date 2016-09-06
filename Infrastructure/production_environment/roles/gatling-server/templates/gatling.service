@@ -1,0 +1,11 @@
+Unit]
+Description=High performance web server
+Documentation=man:gatling(1)
+
+[Service]
+WorkingDirectory=/srv/static
+ExecStart=/usr/bin/gatling
+#IgnoreSIGPIPE=false
+
+[Install]
+WantedBy=multi-user.target

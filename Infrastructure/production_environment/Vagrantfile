@@ -1,0 +1,58 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+require "yaml"
+production_config = YAML.load_file('production_config.yml')[0]['vars']
+
+Vagrant.configure("2") do |config|
+
+    config.vm.box = "bento/debian-8.5"
+    config.vm.box_check_update = false
+
+    config.vm.provider "virtualbox" do |v|
+        v.customize ["modifyvm", :id, "--memory", 256]
+    end
+
+    production_config['balancers'].each do |balancer_cfg|
+        config.vm.define balancer_cfg['name'] do |haproxy|
+            haproxy.vm.network "forwarded_port", guest:80 , host: balancer_cfg['hostport']
+            haproxy.vm.network :private_network, ip: balancer_cfg['ip']
+        end
+    end
+    production_config['appservers'].each do |appserver_cfg|
+        config.vm.define appserver_cfg['name'] do |tomcat|
+            tomcat.vm.network :private_network, ip: appserver_cfg['ip']
+            #tomcat.vm.synced_folder 'prevayler/', '/Users/dcameron/persistence/files*',
+                #id: 'prevayler-data', owner: 'tomcat8', group: 'tomcat8'
+        end
+    end
+    production_config['static'].each do |static_cfg|
+        config.vm.define static_cfg['name'] do |gatling|
+            gatling.vm.network :private_network, ip: static_cfg['ip']
+        end
+    end
+    production_config['logservers'].each do |logserver_cfg|
+        config.vm.define logserver_cfg['name'] do |rsyslog|
+            if logserver_cfg.has_key? 'hostport'
+                rsyslog.vm.network "forwarded_port", guest:80 , host: logserver_cfg['hostport']
+            end
+            rsyslog.vm.network :private_network, ip: logserver_cfg['ip']
+        end
+    end
+
+
+    config.vm.provision "ansible" do |ansible|
+        ansible.playbook = "production_config.yml"
+        ansible.sudo = true
+        #ansible.verbose = "vvv"
+
+        ansible.groups = {}
+        production_config.each_pair do |key, hashlist|
+            ansible.groups[key] = namelist = []
+            hashlist.each do |hostcfg|
+                namelist.push(hostcfg['name'])
+            end
+        end
+        #ansible.limit = 'all'
+    end
+end

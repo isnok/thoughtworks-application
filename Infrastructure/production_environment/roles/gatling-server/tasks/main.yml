@@ -1,0 +1,22 @@
+---
+
+- name: install gatling
+  apt: name=gatling state=installed # update_cache=yes
+
+#- name: assure gatling is runnnig
+  #service: name=gatling enabled=yes state=started
+
+#- name: install systemd launcher
+  #template: src=gatling.service dest=/etc/systemd/system/multi-user.target.wants/gatling.service
+
+- name: configure gatling
+  template: src=gatling-default dest=/etc/default/gatling
+
+- name: deploy static files
+  copy: src=static dest=/srv
+
+#- name: deploy static files
+  #copy: src=static dest=/srv/static/companyNews
+
+- name: assert gatling is started
+  service: name=gatling state=restarted enabled=yes

@@ -1,6 +1,0 @@
----
-- name: deploy rsyslog consumer configuration
-  template: src=rsyslog-server.conf dest=/etc/rsyslog.conf
-
-- name: restart rsyslog
-  service: name=rsyslog state=restarted enabled=yes

@@ -1,0 +1,40 @@
+# vim: set ft=ruby ts=2 sw=2 et:
+# -*- mode: ruby -*-
+
+
+VAGRANT_API_VERSION = '2'
+Vagrant.configure(VAGRANT_API_VERSION) do |config|
+
+  # vm configuration
+  config.vm.box = 'bento/debian-8.5'
+  config.vm.box_check_update = false
+
+  config.vm.define "training_env" do |d|
+
+    d.vm.hostname = 'companyNewsTraining'
+
+    #d.vm.synced_folder './webapps', '/var/lib/tomcat8/webapps', id: 'webapps', disabled: false
+    #d.vm.synced_folder './logs', '/var/log', id: 'logfiles', disabled: false
+
+    d.vm.network "forwarded_port", guest: 8080, host: 8080
+
+    # provisioner configuration
+    d.vm.provision "ansible" do |ansible|
+      ansible.playbook = 'training.yml'
+      ansible.sudo = true
+      #ansible.verbose = 'v'
+    end
+
+    d.vm.provider :virtualbox do |v|
+      v.customize 'pre-boot', ['modifyvm', :id, '--nictype1', 'virtio']
+      v.customize [ 'modifyvm', :id, '--memory', '1024', '--cpus', '1' ]
+    end
+
+    #d.vm.provider :libvirt do |lv|
+      #lv.memory = 1024
+      #lv.cpus = 1
+    #end
+
+  end
+
+end
