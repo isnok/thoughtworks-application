@@ -7,15 +7,20 @@
   - unzip # required by ansible unarchive module
 
 
-- name: deploy tomcat configuration
+- name: deploy tomcat server configuration
   template: src=tomcat8-server.xml dest=/etc/tomcat8/server.xml
+
+- name: deploy tomcat user configuration (for manager-gui)
+  template: src=tomcat-users.xml dest=/etc/tomcat8/tomcat-users.xml
 
 - name: remove default tomcat8 ROOT webapp
   file: path=/var/lib/tomcat8/webapps/ROOT state=absent
 
-
 - name: copy war file into place
   copy: src=companyNews.war dest=/var/lib/tomcat8/webapps
+
+- name: restart tomcat
+  service: name=tomcat8 enabled=yes state=restarted
 
 - name: create prevayler data directory
   file: path=/Users/dcameron/persistence/files* state=directory owner=tomcat8 group=tomcat8 mode=0755

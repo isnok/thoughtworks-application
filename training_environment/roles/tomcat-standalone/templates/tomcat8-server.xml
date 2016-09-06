@@ -142,7 +142,6 @@
                pattern="%h %l %u %t &quot;%r&quot; %s %b" />
 
         <Context docBase="companyNews" path="" />
-        <!--<Context docBase="/srv/static" path="/static" />-->
 
       </Host>
     </Engine>
