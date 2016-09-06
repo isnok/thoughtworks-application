@@ -13,7 +13,7 @@ Once started, the application can be accessed at:
 Architecture
 ------------
 
-All systems are based on the vagrant image bento/debian-8.5 (https://atlas.hashicorp.com/bento/boxes/debian-8.5).
+All systems are based on the vagrant image `bento/debian-8.5` (https://atlas.hashicorp.com/bento/boxes/debian-8.5).
 To serve the war file in each environment, I choose tomcat because it is an apache project.
 In the training environment tomcat also serves the static files, so it is literally the only service defined there.
 In production the static files are served via gatling (http://www.fefe.de/gatling/), because it does the trick with least complexity; it could be replaced when the system complexity grows.
@@ -69,6 +69,8 @@ I built a setup, that runs two appserver nodes, and their state diverges, once t
 Synchronizing the prevayler data directory nodes does not trigger updates in "the other appserver".
 Thus, I would recommend the dev-team to move away from prevayler, towards a distributed database, that fits the data flow of the application.
 Also, not having an authentication system for content creation in place, seems like a bad idea to me.
+The war file also seems to statically reference the directory `/Users/dcameron/persistence/files*` as the persistence directory.
+I would advise to make that configurable, for example through an environment variable.
 
 
 Discussion of the environment
@@ -76,6 +78,7 @@ Discussion of the environment
 
  - service setups are all very basic
  - no encryption configured (https / deployment keys / ssl tunnels for logs)
+ - no backup of application data / disaster recovery plan
  + vagrant adds support for other virtualization providers as well
  + the ansible playbooks could even be used to deploy to platforms not supported by vagrant
 
