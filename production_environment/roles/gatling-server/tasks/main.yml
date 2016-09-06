@@ -15,8 +15,8 @@
 - name: deploy static files
   copy: src=static dest=/srv
 
-- name: deploy static files (again, for a strange case)
-  copy: src=static dest=/srv/static/companyNews
+#- name: deploy static files
+  #copy: src=static dest=/srv/static/companyNews
 
 - name: assert gatling is started
   service: name=gatling state=restarted enabled=yes
