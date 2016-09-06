@@ -25,6 +25,9 @@
 - name: unzip static files
   unarchive: src=static.zip dest=/srv
 
+- name: wait for tomcat to deploy and unpack the war
+  wait_for: path=/var/lib/tomcat8/webapps/companyNews/index.jsp state=present
+
 - name: copy static files into unpacked war (may fail if we are faster than tomcat?)
   shell: "cp -rv /srv/static/* /var/lib/tomcat8/webapps/companyNews"
 
