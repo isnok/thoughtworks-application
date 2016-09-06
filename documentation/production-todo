@@ -18,7 +18,7 @@ Run `vagrant up` in the directory `production_environment`, to bring up the foll
 Architecture
 ------------
 
-All systems are based on the vagrant image `bento/debian-8.5`, for more information visit <https://atlas.hashicorp.com/bento/boxes/debian-8.5>.
+All systems are based on the latest `bento/debian-8.5` vagrant image (currently version `2.2.9`), for more information visit <https://atlas.hashicorp.com/bento/boxes/debian-8.5> and <https://github.com/chef/bento>.
 To serve the war file in each environment, I choose tomcat because it is an apache project.
 In the training environment tomcat also serves the static files, so it is literally the only service defined there.
 In production the static files are served via gatling (<http://www.fefe.de/gatling/>), because it does the trick with least complexity; it could be replaced when the system complexity grows.
