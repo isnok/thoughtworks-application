@@ -1,0 +1,28 @@
+---
+
+- hosts: static
+  roles:
+    - gatling-server
+    - rsyslog-client
+    - vagrant-security
+
+- hosts: appservers
+  roles:
+    - tomcat-server
+    - rsyslog-client
+    - vagrant-security
+
+- hosts: balancers
+  roles:
+    - haproxy
+    - rsyslog-client
+    - vagrant-security
+
+- hosts: logservers
+  roles:
+    - rsyslog-server
+    - vagrant-security
+
+#- hosts: logserver1
+  #roles:
+    #- gatling-logserver

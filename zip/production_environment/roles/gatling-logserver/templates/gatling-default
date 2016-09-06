@@ -1,0 +1,23 @@
+# Defaults for gatling initscript
+# sourced by /etc/init.d/gatling
+# installed at /etc/default/gatling by the maintainer scripts
+
+#
+# This is a POSIX shell fragment
+#
+
+#
+# uncomment the next line run gatling automatically at startup
+#
+START_DAEMON="YES"
+
+#
+# Gatling options
+#
+DAEMON_OPTS="-F -L -d -p 80 -u root -c /var/log"
+
+#
+# Choose daemon in use. Default is TLS-enabled tlsgatling
+# Alternatives: gatling, ptlsgatling (PolarSSL version)
+#
+DAEMON="tlsgatling"
