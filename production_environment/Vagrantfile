@@ -13,10 +13,12 @@ Vagrant.configure("2") do |config|
         v.customize ["modifyvm", :id, "--memory", 256]
     end
 
-    production_config['balancers'].each do |balancer_cfg|
-        config.vm.define balancer_cfg['name'] do |haproxy|
-            haproxy.vm.network "forwarded_port", guest:80 , host: balancer_cfg['hostport']
-            haproxy.vm.network :private_network, ip: balancer_cfg['ip']
+    production_config['logservers'].each do |logserver_cfg|
+        config.vm.define logserver_cfg['name'] do |rsyslog|
+            if logserver_cfg.has_key? 'hostport'
+                rsyslog.vm.network "forwarded_port", guest:80 , host: logserver_cfg['hostport']
+            end
+            rsyslog.vm.network :private_network, ip: logserver_cfg['ip']
         end
     end
     production_config['appservers'].each do |appserver_cfg|
@@ -31,15 +33,12 @@ Vagrant.configure("2") do |config|
             gatling.vm.network :private_network, ip: static_cfg['ip']
         end
     end
-    production_config['logservers'].each do |logserver_cfg|
-        config.vm.define logserver_cfg['name'] do |rsyslog|
-            if logserver_cfg.has_key? 'hostport'
-                rsyslog.vm.network "forwarded_port", guest:80 , host: logserver_cfg['hostport']
-            end
-            rsyslog.vm.network :private_network, ip: logserver_cfg['ip']
+    production_config['balancers'].each do |balancer_cfg|
+        config.vm.define balancer_cfg['name'] do |haproxy|
+            haproxy.vm.network "forwarded_port", guest:80 , host: balancer_cfg['hostport']
+            haproxy.vm.network :private_network, ip: balancer_cfg['ip']
         end
     end
-
 
     config.vm.provision "ansible" do |ansible|
         ansible.playbook = "production_config.yml"
