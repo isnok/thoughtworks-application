@@ -5,10 +5,10 @@ How to run
 Setting up the environments requires virtualbox, vagrant and ansible.
 To set up, simply run `vagrant up` in the directories `training_environment` or `production_environment`.
 Once started, the application can be accessed at:
-    - http://localhost:8080 (training environment),
-    - http://localhost:8081 (production environment - balancer1),
-    - http://localhost:8082 (production environment - balancer2),
-    - http://localhost:8081/haproxy?stats (haproxy_stats_admin:iePha4se),
+    - http://localhost:8080 (training environment)
+    - http://localhost:8081 (production environment - balancer1)
+    - http://localhost:8082 (production environment - balancer2)
+    - http://localhost:8081/haproxy?stats (haproxy_stats_admin:iePha4se)
 
 Architecture
 ------------
@@ -23,7 +23,7 @@ Ram
 
 The tomcat servers were configured to launch jvms with 64mb of ram (due to percepted memory usage and to make development easier).
 Also all vagrant boxes are configured to 256mb of ram in the production environment (128mb also seemed to work).
-In a real-world production setup one would surely increase the ram. (prevayler requires to store the full application state in ram)
+In a real-world production setup one would surely increase the ram (prevayler requires to store the full application state in ram).
 
 Production environment
 ----------------------
@@ -67,16 +67,14 @@ The current implementation (Prevayler) does not provide a way to synchronize app
 This makes one-node fault-tolerance and keeping tight SLAs very hard.
 I built a setup, that runs two appserver nodes, and their state diverges, once the first "news" is entered.
 Synchronizing the prevayler data directory nodes does not trigger updates in "the other appserver".
-Thus, I would recommend the dev-team to move away from prevayler, towards a distributed database, that fits
-the data flow of the application.
+Thus, I would recommend the dev-team to move away from prevayler, towards a distributed database, that fits the data flow of the application.
 Also, not having an authentication system for content creation in place, seems like a bad idea to me.
 
 
 Discussion of the environment
 -----------------------------
 
- - haproxy could route according to JSESSIONID
- - log setup is very basic
+ - service setups are all very basic
  - no encryption configured (https / deployment keys / ssl tunnels for logs)
  + vagrant adds support for other virtualization providers as well
  + the ansible playbooks could even be used to deploy to platforms not supported by vagrant
@@ -85,8 +83,7 @@ Discussion of the environment
 Limited Release
 ---------------
 
-An alerting system should be installed, and ideally the most common administrative
-processes (restarting servers/applications) should be automated.
+An alerting system should be installed, and ideally the most common administrative processes (restarting servers/applications) should be automated.
 I would probably suggest using a cloud provider like uptimerobot (http://uptimerobot.com).
 The system should also have a resource monitoring solution in place to study bottlenecks and load patterns in the limited release system.
 
@@ -95,5 +92,4 @@ Global Release
 --------------
 
 World-wide sub-second response-times require a distribution network around the world.
-For static content a CDN can be used.
-The application logic would be the part to focus on for the global plan.
+For static content a CDN can be used, the application logic would be the part to focus on.
