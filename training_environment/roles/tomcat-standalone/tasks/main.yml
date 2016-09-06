@@ -13,14 +13,11 @@
 - name: deploy tomcat user configuration (for manager-gui)
   template: src=tomcat-users.xml dest=/etc/tomcat8/tomcat-users.xml
 
-- name: remove default tomcat8 ROOT webapp
-  file: path=/var/lib/tomcat8/webapps/ROOT state=absent
-
 - name: copy war file into place
   copy: src=companyNews.war dest=/var/lib/tomcat8/webapps
 
-- name: restart tomcat
-  service: name=tomcat8 enabled=yes state=restarted
+- name: remove default tomcat8 ROOT webapp
+  file: path=/var/lib/tomcat8/webapps/ROOT state=absent
 
 - name: create prevayler data directory
   file: path=/Users/dcameron/persistence/files* state=directory owner=tomcat8 group=tomcat8 mode=0755
@@ -28,10 +25,7 @@
 - name: unzip static files
   unarchive: src=static.zip dest=/srv
 
-- name: create directory of unpacked war, if we were faster than tomcat
-  file: path=/var/lib/tomcat8/webapps/companyNews state=directory owner=tomcat8 group=tomcat8 mode=0755
-
-- name: copy static files into unpacked war
+- name: copy static files into unpacked war (may fail if we are faster than tomcat?)
   shell: "cp -rv /srv/static/* /var/lib/tomcat8/webapps/companyNews"
 
 - name: restart tomcat
