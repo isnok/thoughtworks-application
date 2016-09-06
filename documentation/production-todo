@@ -1,6 +1,29 @@
 papertrail
 ==========
-    - list dependencies (virtualbox, vagrant, ansible)
+
+How to run
+----------
+
+Setting up the environments requires virtualbox, vagrant and ansible.
+To set up, simply run `vagrant up` in the directories `training_environment` or `production_environment`.
+
+
+Architecture
+------------
+
+All systems are based on the vagrant image bento/debian-8.5 (https://atlas.hashicorp.com/bento/boxes/debian-8.5).
+To serve the war file in each environment, I chose tomcat, because it is an apache project.
+It also serves the static files in the training environment, so it is really the only service running there.
+
+
+
+Training environment
+--------------------
+
+The training envi
+
+
+
 
 
 
